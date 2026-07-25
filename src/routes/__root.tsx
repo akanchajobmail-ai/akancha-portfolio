@@ -7,10 +7,9 @@ import {
   Scripts,
   Link,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -38,9 +37,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -76,25 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Akancha Sharma — Where business meets artificial intelligence" },
-      {
-        name: "description",
-        content:
-          "Portfolio of Akancha Sharma. Business problems, research, and AI — turned into things people can actually use.",
-      },
+      { title: "Akancha Sharma | Where Business Meets Artificial Intelligence" },
       { name: "author", content: "Akancha Sharma" },
-      { property: "og:title", content: "Akancha Sharma — Where business meets artificial intelligence" },
-      {
-        property: "og:description",
-        content:
-          "Portfolio of Akancha Sharma. Business problems, research, and AI — turned into things people can actually use.",
-      },
+      { property: "og:title", content: "Akancha Sharma | Where Business Meets Artificial Intelligence" },
+      { property: "og:image", content: "/profile.jpg" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Akancha Sharma | Where Business Meets Artificial Intelligence" },
+      { name: "twitter:image", content: "/profile.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/profile.jpg", type: "image/jpeg" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

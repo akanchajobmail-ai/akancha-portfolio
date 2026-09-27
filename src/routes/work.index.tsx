@@ -11,10 +11,10 @@ export const Route = createFileRoute("/work/")({
       {
         name: "description",
         content:
-          "Fourteen projects across AI in business, brand, research, people, and venture design. Featured pieces first.",
+          "Sixteen projects across AI in business, brand, research, people, product, and venture design. Featured pieces first.",
       },
       { property: "og:title", content: "The Work — Akancha Sharma" },
-      { property: "og:description", content: "Fourteen projects, curated in editorial order." },
+      { property: "og:description", content: "Sixteen projects, curated in editorial order." },
     ],
   }),
   component: WorkIndex,
@@ -32,7 +32,7 @@ function WorkIndex() {
     <PageShell>
       <PageHeader
         eyebrow="The Work"
-        title="Fourteen projects, curated."
+        title="Sixteen projects, curated."
         intro="Not chronological. Not alphabetical. The lead piece has the clearest point of view — the rest follow in editorial order."
       />
 

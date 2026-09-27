@@ -72,18 +72,34 @@ function Experience() {
             <article className="grid md:grid-cols-12 gap-6 md:gap-10 pt-10 border-t border-border">
               <div className="md:col-span-3">
                 <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{r.dates}</div>
-                <div className="mt-2 font-serif text-xl text-primary leading-tight">{r.org}</div>
+                {r.link ? (
+                  <a
+                    href={r.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-2 block font-serif text-xl text-primary leading-tight hover:text-accent transition-colors"
+                  >
+                    {r.org}
+                  </a>
+                ) : (
+                  <div className="mt-2 font-serif text-xl text-primary leading-tight">{r.org}</div>
+                )}
+                {r.location && (
+                  <div className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                    {r.location}
+                  </div>
+                )}
               </div>
               <div className="md:col-span-8 md:col-start-5">
                 <h3 className="font-serif text-2xl md:text-3xl text-primary">{r.title}</h3>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{r.body}</p>
-                {i === 0 && (
+                {i === 1 && (
                   <SideNote label="Currently reading">
                     Amy Edmondson, <em>The Fearless Organization</em> — because most operational
                     problems are really about who felt safe enough to raise them early.
                   </SideNote>
                 )}
-                {i === 2 && (
+                {i === 3 && (
                   <SideNote label="On my mind">
                     How much of "cold outreach" fatigue is really a scripting problem in disguise.
                   </SideNote>

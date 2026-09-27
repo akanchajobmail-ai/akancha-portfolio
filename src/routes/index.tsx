@@ -189,7 +189,7 @@ function Index() {
               to="/work"
               className="inline-flex items-center gap-3 border border-primary px-6 py-3.5 text-xs uppercase tracking-[0.2em] hover:bg-primary hover:text-primary-foreground transition-colors"
             >
-              All 14 projects →
+              All 16 projects →
             </Link>
           </div>
         </div>

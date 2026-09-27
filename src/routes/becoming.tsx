@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHeader } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { timeline } from "@/data/portfolio";
@@ -30,7 +30,7 @@ function Becoming() {
       <PageHeader
         eyebrow="Becoming"
         title="The chronological arc."
-        intro="Not the argument — the evidence trail. Situation, struggle, honest detail, forward hook. Twenty-three entries, told in the order they actually happened."
+        intro="Not the argument — the evidence trail. Situation, struggle, honest detail, forward hook. Twenty-four entries, told in the order they actually happened."
       />
 
       <div className="container-editorial pb-24">
@@ -74,12 +74,19 @@ function Becoming() {
               </div>
               <div className="relative border border-border p-5 hover:border-accent hover:bg-blush/30 transition-colors">
                 <div className="absolute top-3 right-3 text-[9px] uppercase tracking-[0.2em] bg-accent text-accent-foreground px-2 py-0.5">
-                  Coming Soon
+                  Completed
                 </div>
-                <div className="font-serif text-xl text-primary mb-3 pr-24">Upcoming Project</div>
+                <div className="font-serif text-xl text-primary mb-3 pr-24">MSc Capstone Project</div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  My current capstone research explores how an AI-enabled platform could support the standardisation of tea tasting and grading within tea trading businesses. Working with a real tea brokerage, I'm researching how AI can reduce subjectivity, preserve expert knowledge, and improve decision-making while keeping human expertise at the centre of the process.
+                  My MSc capstone research examined how an AI-enabled platform could support the standardisation of tea tasting and grading, working with a real tea brokerage in Siliguri. The research frames AI as decision support, not a replacement for expert judgement.
                 </p>
+                <Link
+                  to="/work/$slug"
+                  params={{ slug: "ai-tea-grading" }}
+                  className="mt-3 inline-block text-xs uppercase tracking-[0.16em] link-underline text-accent"
+                >
+                  Read the case study →
+                </Link>
               </div>
             </div>
           </div>

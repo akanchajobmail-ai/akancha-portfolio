@@ -14,6 +14,7 @@ export type Project = {
   outcome: string;
   reflection: string;
   related: string[];
+  externalLink?: { label: string; href: string };
 };
 
 export const projects: Project[] = [
@@ -223,6 +224,31 @@ export const projects: Project[] = [
     related: ["calvin-klein-pvh", "career-advice"],
   },
   {
+    slug: "ai-tea-grading",
+    title: "Designing AI Decision Support for Tea Grading",
+    subtitle: "The AI That Shouldn't Grade the Tea",
+    deck: "Research into how AI could support consistency in tea tasting and grading — without replacing the person who actually understands the tea.",
+    tags: ["AI in Business", "Research"],
+    overview:
+      "Tea grading is a judgement-heavy business process. At a small tea brokerage in Siliguri, much of that judgement lived in experience, memory and informal records. This research asked what an AI-enabled platform would actually need to do to make tea tasting and grading more consistent, without taking the decision away from the people who understand the tea.",
+    challenge:
+      "Tea grading sits at the centre of buying, pricing and buyer acceptance, yet the reasoning behind those decisions was not held in one structured system. The research explored the sources of inconsistency and the conditions under which tea professionals would actually trust AI to support their work.",
+    research:
+      "An interpretivist qualitative case study examined tea grading practices within Shree Shyaam Tea Co., a tea trading and brokerage business in Siliguri, India. Seven participants took part in the Stage 1 study — three from within the case organisation, four industry peers from other tea-trading businesses — followed by a Stage 2 design-validation focus group with the three focal-company participants. Thematic analysis surfaced six recurring findings: grading is experiential and context-dependent, not standardised; trust in AI is conditional and evidence-based; AI's realistic value lies in support functions, not sensory judgement; human judgement and accountability must remain central; data control and cost sensitivity shape adoption willingness; and the deeper business problems lie beyond grading itself.",
+    insights:
+      "The problem was not simply that human judgement is subjective. The research showed that standardisation has to account for context, experience, trust, accountability, data control, cost and the preservation of expertise — and that changes the role AI should play.",
+    approach:
+      "Findings from the seven Stage 1 interviews were translated into a first set of design recommendations, then tested directly with the three focal-company participants in a dedicated validation focus group — checking the ideas against the people who would actually have to trust and use them, rather than finalising the design in isolation.",
+    ai: "AI was framed as decision support rather than automated judgement. The proposed system would help structure information, surface comparisons, preserve knowledge and support consistency, while leaving the final sensory judgement and accountability with the human expert.",
+    solution:
+      "The research translated its findings into a set of platform requirements — structured grading support, historical comparison, knowledge capture, environmental and image standardisation, buyer-requirement matching, and clearer communication of tasting information. These are research-grounded design recommendations, not a tested production system.",
+    outcome:
+      "A grounded account of what one real tea-trading business would need from an AI-enabled decision-support system. Rather than asking whether AI can grade tea, the research asks a more useful design question: what should AI do when the person making the decision has expertise the system does not?",
+    reflection:
+      "The most important design decision was deciding where not to automate. In judgement-intensive work, the value of AI may come less from replacing expertise and more from making expertise easier to structure, compare, preserve and use.",
+    related: ["ai-grading", "career-advice"],
+  },
+  {
     slug: "akancha",
     title: "Solving Decision Fatigue in Online Shopping",
     subtitle: "AKANCHA",
@@ -242,6 +268,32 @@ export const projects: Project[] = [
     outcome: "A complete concept with a clear position against much bigger, better-funded competitors.",
     reflection: "Standing out from a Stitch Fix means finding a genuine gap, not just a smaller version of what they already do.",
     related: ["daily-t", "boat"],
+  },
+  {
+    slug: "mealmate",
+    title: "MealMate",
+    subtitle: "Turning a week's worth of food decisions into one workflow",
+    deck: "A meal-planning product that turns what you already have, your dietary needs and your budget into a practical seven-day food plan.",
+    tags: ["Venture Design", "AI in Business"],
+    overview:
+      "MealMate plans seven days of meals around what's already in the kitchen, builds the grocery list, keeps the week under budget, and hands over a batch-prep schedule — built around vegetarian, high-protein eating on a UK budget.",
+    challenge:
+      "Meal planning is rarely one decision. You have to work out what's already in the kitchen, what to cook, what to buy, what it will cost, and what needs using up first — and most tools solve only one piece of that at a time.",
+    research:
+      "Grounded in three constraints that show up directly on the product itself: vegetarian and high-protein eating, a fixed UK weekly budget, and food waste — not assumptions layered on afterward, but the three lines the product leads with.",
+    insights:
+      "The product is less about generating recipes and more about reducing decision fatigue across the entire weekly food-planning process — from what's already in the fridge through to what gets thrown away.",
+    approach:
+      "Connect the decisions instead of solving them one at a time: start from the food already available, then work forward through a week of meals, a shopping list, an estimated cost, a batch-prep schedule, and a plan for using up what's about to expire.",
+    ai: "The generation logic that turns pantry items, protein and calorie targets, and a budget into a full week's plan isn't detailed publicly. This case study focuses on the product decisions the plan needed to make, not the model behind it.",
+    solution:
+      "Six connected steps: what's in the kitchen, a 7-day plan tuned to protein, calories and budget, a consolidated shopping list, an estimated cost with a one-tap way to bring it under budget, a batch-cooking schedule, and leftovers planned in with expiring food used first.",
+    outcome:
+      "A working demo product, not a finished commercial platform — sign-in is via Google, kitchen data is described as private to the account, and the product itself states it's a demo build with estimated rather than live grocery pricing.",
+    reflection:
+      "Reducing decision fatigue only works if you actually connect the decisions — a meal plan, a shopping list and a budget that don't talk to each other are still three separate chores.",
+    related: ["daily-t", "akancha"],
+    externalLink: { label: "View MealMate", href: "https://mealmate.rishabh.uk/" },
   },
   {
     slug: "boat",
@@ -336,9 +388,19 @@ export type Role = {
   org: string;
   dates: string;
   body: string;
+  location?: string;
+  link?: string;
 };
 
 export const roles: Role[] = [
+  {
+    title: "Business Support & Events Intern",
+    org: "New Forest Business Partnership",
+    dates: "2026–Present",
+    location: "Lymington / Hybrid",
+    link: "https://www.nfbp.org.uk/",
+    body: "Supporting a not-for-profit business network delivering 140+ business support and networking events annually for more than 9,000 businesses across the New Forest. My work spans business support operations, event planning and content production, alongside identifying where AI can reduce manual effort and improve how the team works — an area I've been given direct ownership of. Applying management and AI frameworks from my MSc at the University of Southampton to a live organisational environment, exploring where automation adds value and where human judgement still needs to lead.",
+  },
   {
     title: "Restaurant & Bar Floor Manager",
     org: "The Shoe Inn Gastro Pub, Romsey",
@@ -407,6 +469,7 @@ export const timeline: { year: string; label: string; detail: string }[] = [
   { year: "2025–2026", label: "University of Southampton — MSc Management & Artificial Intelligence", detail: "Elected Course Representative." },
   { year: "2026–Present", label: "Student Ambassador", detail: "" },
   { year: "2026", label: "Restaurant & Bar Floor Manager", detail: "" },
+  { year: "2026–Present", label: "New Forest Business Partnership — Business Support & Events Intern", detail: "Lymington / Hybrid. Business support, events, and identifying where AI can reduce manual effort." },
 ];
 
 export const thinking = [

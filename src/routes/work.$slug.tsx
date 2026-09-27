@@ -13,6 +13,7 @@ const projectPdfFileNameBySlug: Record<string, string> = {
   "velocity-inc": "velocity-inc.pdf",
   "career-advice": "career-advice.pdf",
   "ai-grading": "ai-grading.pdf",
+  "ai-tea-grading": "Akancha_Sharma_MSc_Capstone_Project.pdf",
   akancha: "akancha.pdf",
   boat: "boat.pdf",
   "toffee-inc": "toffee-inc.pdf",
@@ -149,14 +150,33 @@ function ProjectDetail() {
       <section className="container-editorial py-20">
         <div className="grid md:grid-cols-12 gap-10 items-start">
           <div className="md:col-span-4">
-            <div className="text-xs uppercase tracking-[0.24em] text-accent mb-4">Project Report</div>
+            <div className="text-xs uppercase tracking-[0.24em] text-accent mb-4">
+              {p.externalLink ? "The Product" : "Project Report"}
+            </div>
             <p className="text-muted-foreground">
-              Read the complete report submitted for this project, including the research,
-              analysis, strategy, and final recommendations.
+              {p.externalLink
+                ? "This is a live build, not just a case study — see the actual product this page describes."
+                : "Read the complete report submitted for this project, including the research, analysis, strategy, and final recommendations."}
             </p>
           </div>
           <div className="md:col-span-7 md:col-start-6 flex justify-end">
             {(() => {
+              if (p.externalLink) {
+                return (
+                  <a
+                    href={p.externalLink.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-left border border-border p-4 hover:border-accent hover:bg-blush/40 transition-colors min-w-[240px]"
+                  >
+                    <div className="font-serif text-lg text-primary">{p.externalLink.label} ↗</div>
+                    <div className="mt-1 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                      Opens in a new tab →
+                    </div>
+                  </a>
+                );
+              }
+
               const fileName = projectPdfFileNameBySlug[p.slug];
               const href = fileName ? `/pdfs/project%20pdfs/${encodeURIComponent(fileName)}` : null;
 

@@ -87,6 +87,24 @@ export const questions: Question[] = [
     linkHref: "/work/what-employers-look-for",
   },
   {
+    id: "dissertation",
+    category: "the-work",
+    question: "What is her dissertation about?",
+    answer:
+      "Her MSc capstone examined what an AI-enabled platform would need to do to support the standardisation of tea tasting and grading in a tea-trading business. The research focused on AI as decision support rather than replacing expert judgement.",
+    linkLabel: "View Project →",
+    linkHref: "/work/ai-tea-grading",
+  },
+  {
+    id: "mealmate",
+    category: "the-work",
+    question: "Tell me about MealMate.",
+    answer:
+      "MealMate is a meal-planning product that connects what you already have in the kitchen with a seven-day meal plan, grocery list, estimated cost, batch preparation and food-waste reduction.",
+    linkLabel: "View Project →",
+    linkHref: "/work/mealmate",
+  },
+  {
     id: "why-hire",
     category: "the-work",
     question: "Why should I hire you?",
@@ -97,6 +115,15 @@ export const questions: Question[] = [
   },
 
   // Experience
+  {
+    id: "current-role",
+    category: "experience",
+    question: "What is Akancha doing now?",
+    answer:
+      "She's currently working as a Business Support & Events Intern at New Forest Business Partnership, supporting business operations and events while exploring where AI can reduce manual work and where human judgement still needs to lead.",
+    linkLabel: "Open Experience →",
+    linkHref: "/field-notes",
+  },
   {
     id: "experience",
     category: "experience",
@@ -220,7 +247,7 @@ export const roleShortcuts: RoleShortcut[] = [
   {
     id: "explore",
     label: "Explore the Portfolio",
-    intro: "All fourteen projects, in editorial order.",
+    intro: "All sixteen projects, in editorial order.",
     steps: [{ label: "The Work", href: "/work" }],
   },
   {

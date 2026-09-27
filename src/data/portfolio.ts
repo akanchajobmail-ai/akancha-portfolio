@@ -388,16 +388,14 @@ export type Role = {
   org: string;
   dates: string;
   body: string;
-  location?: string;
   link?: string;
 };
 
 export const roles: Role[] = [
   {
     title: "Business Support & Events Intern",
-    org: "New Forest Business Partnership",
+    org: "New Forest Business Partnership, Lymington / Hybrid",
     dates: "2026–Present",
-    location: "Lymington / Hybrid",
     link: "https://www.nfbp.org.uk/",
     body: "Supporting a not-for-profit business network delivering 140+ business support and networking events annually for more than 9,000 businesses across the New Forest. My work spans business support operations, event planning and content production, alongside identifying where AI can reduce manual effort and improve how the team works — an area I've been given direct ownership of. Applying management and AI frameworks from my MSc at the University of Southampton to a live organisational environment, exploring where automation adds value and where human judgement still needs to lead.",
   },

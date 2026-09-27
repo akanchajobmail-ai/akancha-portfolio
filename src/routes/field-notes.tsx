@@ -84,11 +84,6 @@ function Experience() {
                 ) : (
                   <div className="mt-2 font-serif text-xl text-primary leading-tight">{r.org}</div>
                 )}
-                {r.location && (
-                  <div className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                    {r.location}
-                  </div>
-                )}
               </div>
               <div className="md:col-span-8 md:col-start-5">
                 <h3 className="font-serif text-2xl md:text-3xl text-primary">{r.title}</h3>

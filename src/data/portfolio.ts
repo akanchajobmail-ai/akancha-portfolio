@@ -19,6 +19,31 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "ai-tea-grading",
+    title: "Designing AI Decision Support for Tea Grading",
+    subtitle: "The AI That Shouldn't Grade the Tea",
+    deck: "Research into how AI could support consistency in tea tasting and grading — without replacing the person who actually understands the tea.",
+    tags: ["AI in Business", "Research"],
+    overview:
+      "Tea grading is a judgement-heavy business process. At a small tea brokerage in Siliguri, much of that judgement lived in experience, memory and informal records. This research asked what an AI-enabled platform would actually need to do to make tea tasting and grading more consistent, without taking the decision away from the people who understand the tea.",
+    challenge:
+      "Tea grading sits at the centre of buying, pricing and buyer acceptance, yet the reasoning behind those decisions was not held in one structured system. The research explored the sources of inconsistency and the conditions under which tea professionals would actually trust AI to support their work.",
+    research:
+      "An interpretivist qualitative case study examined tea grading practices within Shree Shyaam Tea Co., a tea trading and brokerage business in Siliguri, India. Seven participants took part in the Stage 1 study — three from within the case organisation, four industry peers from other tea-trading businesses — followed by a Stage 2 design-validation focus group with the three focal-company participants. Thematic analysis surfaced six recurring findings: grading is experiential and context-dependent, not standardised; trust in AI is conditional and evidence-based; AI's realistic value lies in support functions, not sensory judgement; human judgement and accountability must remain central; data control and cost sensitivity shape adoption willingness; and the deeper business problems lie beyond grading itself.",
+    insights:
+      "The problem was not simply that human judgement is subjective. The research showed that standardisation has to account for context, experience, trust, accountability, data control, cost and the preservation of expertise — and that changes the role AI should play.",
+    approach:
+      "Findings from the seven Stage 1 interviews were translated into a first set of design recommendations, then tested directly with the three focal-company participants in a dedicated validation focus group — checking the ideas against the people who would actually have to trust and use them, rather than finalising the design in isolation.",
+    ai: "AI was framed as decision support rather than automated judgement. The proposed system would help structure information, surface comparisons, preserve knowledge and support consistency, while leaving the final sensory judgement and accountability with the human expert.",
+    solution:
+      "The research translated its findings into a set of platform requirements — structured grading support, historical comparison, knowledge capture, environmental and image standardisation, buyer-requirement matching, and clearer communication of tasting information. These are research-grounded design recommendations, not a tested production system.",
+    outcome:
+      "A grounded account of what one real tea-trading business would need from an AI-enabled decision-support system. Rather than asking whether AI can grade tea, the research asks a more useful design question: what should AI do when the person making the decision has expertise the system does not?",
+    reflection:
+      "The most important design decision was deciding where not to automate. In judgement-intensive work, the value of AI may come less from replacing expertise and more from making expertise easier to structure, compare, preserve and use.",
+    related: ["ai-grading", "career-advice"],
+  },
+  {
     slug: "daily-t",
     title: "Daily T",
     subtitle: "A tea brand built to fix a habit, not a taste",
@@ -224,31 +249,6 @@ export const projects: Project[] = [
     related: ["calvin-klein-pvh", "career-advice"],
   },
   {
-    slug: "ai-tea-grading",
-    title: "Designing AI Decision Support for Tea Grading",
-    subtitle: "The AI That Shouldn't Grade the Tea",
-    deck: "Research into how AI could support consistency in tea tasting and grading — without replacing the person who actually understands the tea.",
-    tags: ["AI in Business", "Research"],
-    overview:
-      "Tea grading is a judgement-heavy business process. At a small tea brokerage in Siliguri, much of that judgement lived in experience, memory and informal records. This research asked what an AI-enabled platform would actually need to do to make tea tasting and grading more consistent, without taking the decision away from the people who understand the tea.",
-    challenge:
-      "Tea grading sits at the centre of buying, pricing and buyer acceptance, yet the reasoning behind those decisions was not held in one structured system. The research explored the sources of inconsistency and the conditions under which tea professionals would actually trust AI to support their work.",
-    research:
-      "An interpretivist qualitative case study examined tea grading practices within Shree Shyaam Tea Co., a tea trading and brokerage business in Siliguri, India. Seven participants took part in the Stage 1 study — three from within the case organisation, four industry peers from other tea-trading businesses — followed by a Stage 2 design-validation focus group with the three focal-company participants. Thematic analysis surfaced six recurring findings: grading is experiential and context-dependent, not standardised; trust in AI is conditional and evidence-based; AI's realistic value lies in support functions, not sensory judgement; human judgement and accountability must remain central; data control and cost sensitivity shape adoption willingness; and the deeper business problems lie beyond grading itself.",
-    insights:
-      "The problem was not simply that human judgement is subjective. The research showed that standardisation has to account for context, experience, trust, accountability, data control, cost and the preservation of expertise — and that changes the role AI should play.",
-    approach:
-      "Findings from the seven Stage 1 interviews were translated into a first set of design recommendations, then tested directly with the three focal-company participants in a dedicated validation focus group — checking the ideas against the people who would actually have to trust and use them, rather than finalising the design in isolation.",
-    ai: "AI was framed as decision support rather than automated judgement. The proposed system would help structure information, surface comparisons, preserve knowledge and support consistency, while leaving the final sensory judgement and accountability with the human expert.",
-    solution:
-      "The research translated its findings into a set of platform requirements — structured grading support, historical comparison, knowledge capture, environmental and image standardisation, buyer-requirement matching, and clearer communication of tasting information. These are research-grounded design recommendations, not a tested production system.",
-    outcome:
-      "A grounded account of what one real tea-trading business would need from an AI-enabled decision-support system. Rather than asking whether AI can grade tea, the research asks a more useful design question: what should AI do when the person making the decision has expertise the system does not?",
-    reflection:
-      "The most important design decision was deciding where not to automate. In judgement-intensive work, the value of AI may come less from replacing expertise and more from making expertise easier to structure, compare, preserve and use.",
-    related: ["ai-grading", "career-advice"],
-  },
-  {
     slug: "akancha",
     title: "Solving Decision Fatigue in Online Shopping",
     subtitle: "AKANCHA",
@@ -397,7 +397,7 @@ export const roles: Role[] = [
     org: "New Forest Business Partnership, Lymington / Hybrid",
     dates: "2026–Present",
     link: "https://www.nfbp.org.uk/",
-    body: "Supporting a not-for-profit business network delivering 140+ business support and networking events annually for more than 9,000 businesses across the New Forest. My work spans business support operations, event planning and content production, alongside identifying where AI can reduce manual effort and improve how the team works — an area I've been given direct ownership of. Applying management and AI frameworks from my MSc at the University of Southampton to a live organisational environment, exploring where automation adds value and where human judgement still needs to lead.",
+    body: "Support business events, operations and content across the New Forest. Working on the 2026 Brilliance in Business Awards and 2027 Business Show, while exploring where AI can improve routine work.",
   },
   {
     title: "Restaurant & Bar Floor Manager",

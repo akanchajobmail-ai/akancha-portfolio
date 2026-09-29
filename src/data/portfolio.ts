@@ -268,6 +268,7 @@ export const projects: Project[] = [
     outcome: "A complete concept with a clear position against much bigger, better-funded competitors.",
     reflection: "Standing out from a Stitch Fix means finding a genuine gap, not just a smaller version of what they already do.",
     related: ["daily-t", "boat"],
+    externalLink: { label: "View Elevate Your Wardrobe", href: "https://elevateyourwardrobe.akancha.co.uk/" },
   },
   {
     slug: "mealmate",

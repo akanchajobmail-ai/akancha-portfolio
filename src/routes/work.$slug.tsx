@@ -145,6 +145,11 @@ function ProjectDetail() {
       <section className="container-editorial pb-16 grid md:grid-cols-12 gap-10 border-t border-border pt-16">
         <div className="md:col-span-6">
           <div className="text-xs uppercase tracking-[0.24em] text-accent mb-4">Overview</div>
+          {p.status && (
+            <div className="inline-block mb-4 text-[10px] uppercase tracking-[0.12em] px-2.5 py-1.5 border border-accent/50 text-accent">
+              {p.status}
+            </div>
+          )}
           <p className="text-lg leading-relaxed text-muted-foreground">{p.overview}</p>
         </div>
         <div className="md:col-span-5 md:col-start-8 md:border-l border-border md:pl-10">
@@ -185,7 +190,7 @@ function ProjectDetail() {
             </div>
             <p className="text-muted-foreground">
               {p.externalLink
-                ? "This is a live build, not just a case study — see the actual product this page describes."
+                ? "This is a live demo, not just a case study — see the actual product this page describes."
                 : "Read the complete report submitted for this project, including the research, analysis, strategy, and final recommendations."}
             </p>
           </div>

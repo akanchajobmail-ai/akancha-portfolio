@@ -19,7 +19,10 @@ function NotFoundComponent() {
         <h1 className="font-serif text-5xl text-primary">Not that page.</h1>
         <p className="mt-4 text-muted-foreground">
           Looking for something specific?{" "}
-          <Link to="/contact" className="text-accent link-underline">Get in touch</Link>.
+          <Link to="/contact" className="text-accent link-underline">
+            Get in touch
+          </Link>
+          .
         </p>
         <div className="mt-8">
           <Link
@@ -34,7 +37,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
 
@@ -74,11 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Akancha Sharma | Where Business Meets Artificial Intelligence" },
       { name: "author", content: "Akancha Sharma" },
-      { property: "og:title", content: "Akancha Sharma | Where Business Meets Artificial Intelligence" },
+      {
+        property: "og:title",
+        content: "Akancha Sharma | Where Business Meets Artificial Intelligence",
+      },
       { property: "og:image", content: "/profile.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Akancha Sharma | Where Business Meets Artificial Intelligence" },
+      {
+        name: "twitter:title",
+        content: "Akancha Sharma | Where Business Meets Artificial Intelligence",
+      },
       { name: "twitter:image", content: "/profile.jpg" },
     ],
     links: [

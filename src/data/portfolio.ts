@@ -11,6 +11,7 @@ export type Project = {
   tags: string[];
   cardChallenge: string;
   cardContribution: string;
+  status?: string;
   overview: string;
   problem: QABlock;
   aiRole: QABlock;
@@ -88,6 +89,7 @@ export const projects: Project[] = [
       "People who know they need a B12/Magnesium supplement still don't take one consistently.",
     cardContribution:
       "Designed a fortified tea venture, its AI roadmap and a three-year growth plan.",
+    status: "Proposed venture — projected, not launched",
     overview:
       "A proposed Darjeeling tea, fortified with Vitamin B12 and Magnesium, built around one idea: don't ask people to start a new habit, fix the one they already have.",
     problem: {
@@ -142,6 +144,7 @@ export const projects: Project[] = [
     cardChallenge: '"This company uses AI" isn\'t an interesting sentence on its own.',
     cardContribution:
       "Traced Honasa's AI investment to the specific decisions it actually changed.",
+    status: "Research-based strategic analysis and proposed AI solutions",
     overview:
       "A look at how Honasa Consumer, Mamaearth's parent company, uses AI in decisions that actually matter — product, customer engagement, market positioning — not as a headline feature.",
     problem: {
@@ -251,6 +254,7 @@ export const projects: Project[] = [
       "2,155% growth in a year doesn't answer what Mamaearth does next against HUL and Dabur.",
     cardContribution:
       "Recommended four growth moves, including an AI-personalisation lever and a costed sustainability workstream.",
+    status: "Proposed strategy — estimated financial impact, not implemented",
     overview:
       "Mamaearth grew from a baby-care startup into a unicorn-valued company almost overnight. This looks at what it should do next.",
     problem: {
@@ -304,6 +308,7 @@ export const projects: Project[] = [
       'There\'s no single "graduate job market" — and curricula treat it like there is.',
     cardContribution:
       "Used AI to pattern-match 55 job listings into a sector-by-sector skills-gap list.",
+    status: "Research-derived proposals — adoption not evidenced",
     overview:
       "A research project built on fifty-five real graduate job listings, to find out where what universities teach and what employers actually want start to disagree.",
     problem: {
@@ -356,6 +361,7 @@ export const projects: Project[] = [
       "AI hiring and 3D design tools were moving faster than the culture meant to support them.",
     cardContribution:
       "Designed an AI governance approach that builds fairness into the systems themselves.",
+    status: "Proposed governance framework — not implemented at PVH",
     overview:
       "A look at whether a major fashion company can bring in AI hiring tools and 3D design software without damaging the culture and people underneath it.",
     problem: {
@@ -407,6 +413,7 @@ export const projects: Project[] = [
       "Wellness programmes were running on paper; burnout kept happening on the warehouse floor.",
     cardContribution:
       "Diagnosed the gap from three angles and recommended AI-enabled communication as one of four fixes.",
+    status: "Recommendations — not implemented",
     overview:
       "A cloud and e-commerce company had wellness programmes running — and a genuinely disengaged workforce anyway. This works out why.",
     problem: {
@@ -444,7 +451,7 @@ export const projects: Project[] = [
       ],
     },
     outcome:
-      "Standardised policy with room for local flexibility, real feedback loops for leaders, and measurable inclusion targets.",
+      "Recommended: standardised policy with room for local flexibility, real feedback loops for leaders, and measurable inclusion targets.",
     reflection:
       "Diagnosing the gap between a policy and what actually happens on the ground means looking at the ground, not just the policy document.",
     related: ["calvin-klein-pvh", "honasa-consumer"],
@@ -508,6 +515,7 @@ export const projects: Project[] = [
       "Human grading isn't neutral either — so is AI grading really the riskier option?",
     cardContribution:
       "Proposed four principles for responsible AI grading, built around visibility and appeal.",
+    status: "Proposed AI governance model",
     overview:
       'Should universities let AI grade student work? The honest answer isn\'t "yes" or "no" — it\'s about who\'s actually accountable when it gets something wrong.',
     problem: {
@@ -560,6 +568,7 @@ export const projects: Project[] = [
       "Endless choice makes online shopping exhausting, and real styling is expensive.",
     cardContribution:
       "Specified an AI-plus-human styling concept and shipped a live front-end demo.",
+    status: "Live demo & prototype — AI engine not built or deployed",
     overview:
       "A concept for a shopping platform that pairs AI recommendations with an actual human stylist, built for people who are tired of scrolling.",
     problem: {
@@ -595,8 +604,9 @@ export const projects: Project[] = [
     delivered: {
       question: "What actually exists today?",
       points: [
-        "A complete venture concept — four target customer groups, a hybrid AI/human service model, and a sustainable-fashion partnership angle.",
-        "A live front-end demo (see Elevate Your Wardrobe); the AI recommendation engine itself remains a specification, not a deployed system.",
+        "Live: the Elevate Your Wardrobe site — brand, positioning and service pages, publicly visitable now.",
+        "Working prototype: an 8-step interactive style-assessment flow on that site, functioning end to end on the front end.",
+        "Design specification, not built: the TensorFlow/Django/React recommendation engine, the human-stylist matching workflow, and the four-segment customer model — none of it wired to a live AI or styling backend.",
       ],
     },
     outcome:
@@ -719,8 +729,9 @@ export const projects: Project[] = [
     tags: ["Research"],
     cardChallenge: "Seasonal demand swings were hiding a massive inventory-cost problem.",
     cardContribution: "Built a seasonally-split forecasting model that cut inventory costs by 96%.",
+    status: "Modelled result — not independently verified",
     overview:
-      "A confectionery company's demand kept swinging wildly by season. A demand-forecasting model brought its inventory costs down by 96%.",
+      "A confectionery company's demand kept swinging wildly by season. A demand-forecasting model points to a modelled 96% reduction in inventory costs.",
     problem: {
       question: "Why was a chocolate bar's inventory bleeding cash?",
       points: [
@@ -757,7 +768,7 @@ export const projects: Project[] = [
       ],
     },
     outcome:
-      "Total inventory costs dropped from ₹31,25,060 to roughly ₹1,28,749 — a 96% reduction.",
+      "Total inventory costs modelled down from ₹31,25,060 to roughly ₹1,28,749 — a 96% reduction, based on five years of historical data, not an independently verified real-world result.",
     reflection:
       "A fairly simple model can produce a dramatic result, if you split it by the one variable that actually matters.",
     related: ["boat", "mamaearth"],

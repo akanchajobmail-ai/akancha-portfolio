@@ -1,14 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell, PageHeader } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
-import { SideNote } from "@/components/SideNote";
 import { roles } from "@/data/portfolio";
 
 export const Route = createFileRoute("/field-notes")({
   head: () => ({
     meta: [
       { title: "Experience — Akancha Sharma" },
-      { name: "description", content: "Roles told as dispatches: challenge, approach, outcome, what I took away." },
+      {
+        name: "description",
+        content: "Roles told as dispatches: challenge, approach, outcome, what I took away.",
+      },
       { property: "og:title", content: "Experience — Akancha Sharma" },
       { property: "og:description", content: "Dispatches from real environments." },
     ],
@@ -30,7 +32,7 @@ const community = [
   {
     role: "Public Relations Officer",
     org: "Rotaract Club, Inspiria Knowledge Campus",
-    note: "Ran the club's external voice — press, partners, and the Pitch Fest win at UDDHAV.",
+    note: "Led PR and social strategy for the club, including UDDHAV — a regional Rotaract Zonal Meet — where I managed event communications, stakeholder engagement and day-of coordination for 100+ attendees, and won Pitch Fest for best project presentation.",
   },
   {
     role: "Academic Co-Chair",
@@ -71,7 +73,9 @@ function Experience() {
           <Reveal key={r.title + i}>
             <article className="grid md:grid-cols-12 gap-6 md:gap-10 pt-10 border-t border-border">
               <div className="md:col-span-3">
-                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{r.dates}</div>
+                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {r.dates}
+                </div>
                 {r.link ? (
                   <a
                     href={r.link}
@@ -88,17 +92,6 @@ function Experience() {
               <div className="md:col-span-8 md:col-start-5">
                 <h3 className="font-serif text-2xl md:text-3xl text-primary">{r.title}</h3>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{r.body}</p>
-                {i === 1 && (
-                  <SideNote label="Currently reading">
-                    Amy Edmondson, <em>The Fearless Organization</em> — because most operational
-                    problems are really about who felt safe enough to raise them early.
-                  </SideNote>
-                )}
-                {i === 3 && (
-                  <SideNote label="On my mind">
-                    How much of "cold outreach" fatigue is really a scripting problem in disguise.
-                  </SideNote>
-                )}
               </div>
             </article>
           </Reveal>

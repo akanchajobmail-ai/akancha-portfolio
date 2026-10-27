@@ -62,23 +62,58 @@ export const Route = createFileRoute("/work/$slug")({
   ),
 });
 
+function QABox({
+  qa,
+  span,
+  chips = false,
+}: {
+  qa: { question: string; points: string[] };
+  span: string;
+  chips?: boolean;
+}) {
+  return (
+    <Reveal className={span}>
+      <div className="h-full border border-border p-6 md:p-8 hover:border-accent transition-colors">
+        <div className="text-xs uppercase tracking-[0.2em] text-accent">{qa.question}</div>
+        {chips ? (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {qa.points.map((pt, i) => (
+              <span
+                key={i}
+                className="text-[11px] uppercase tracking-[0.12em] px-2.5 py-1.5 border border-border text-primary/90"
+              >
+                {pt}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <ul className="mt-4 space-y-2.5">
+            {qa.points.map((pt, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-2.5 text-base leading-relaxed text-primary/90"
+              >
+                <span aria-hidden className="mt-2.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                <span>{pt}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </Reveal>
+  );
+}
+
 function ProjectDetail() {
   const { project: p } = Route.useLoaderData() as { project: Project };
-
-  const sections: { key: keyof Project; label: string; body: string }[] = [
-    { key: "challenge", label: "The Challenge", body: p.challenge },
-    { key: "research", label: "Research", body: p.research },
-    { key: "insights", label: "Key Insights", body: p.insights },
-    { key: "approach", label: "Approach", body: p.approach },
-    { key: "ai", label: "AI Integration", body: p.ai },
-    { key: "solution", label: "The Solution", body: p.solution },
-  ];
 
   return (
     <PageShell>
       {/* Breadcrumbs */}
       <div className="container-editorial pt-8 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        <Link to="/work" className="hover:text-accent">The Work</Link>
+        <Link to="/work" className="hover:text-accent">
+          The Work
+        </Link>
         <span className="mx-2">/</span>
         <span className="text-primary">{p.title}</span>
       </div>
@@ -118,19 +153,14 @@ function ProjectDetail() {
         </div>
       </section>
 
-      {/* Detail sections */}
+      {/* Detail sections — editorial grid, box size follows content */}
       <section className="container-editorial pb-16">
-        <div className="grid md:grid-cols-12 gap-y-14 gap-x-10">
-          {sections.map((s) => (
-            <Reveal key={s.key} className="md:col-span-10 md:col-start-2">
-              <div className="grid md:grid-cols-4 gap-6 md:gap-10 py-8 border-t border-border">
-                <div className="md:col-span-1">
-                  <div className="text-xs uppercase tracking-[0.2em] text-accent">{s.label}</div>
-                </div>
-                <p className="md:col-span-3 text-lg leading-relaxed text-primary/90">{s.body}</p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <QABox qa={p.problem} span="md:col-span-7" />
+          <QABox qa={p.aiRole} span="md:col-span-5" />
+          <QABox qa={p.strategy} span="md:col-span-5" />
+          <QABox qa={p.frameworks} span="md:col-span-3" chips />
+          <QABox qa={p.delivered} span="md:col-span-4" />
         </div>
       </section>
 
@@ -213,7 +243,6 @@ function ProjectDetail() {
           </div>
         </div>
       </section>
-
 
       {/* Related */}
       <section className="border-t border-border py-20">

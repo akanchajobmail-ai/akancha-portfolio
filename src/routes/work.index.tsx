@@ -25,7 +25,7 @@ function WorkIndex() {
 
   const filtered = useMemo(
     () => (tag ? projects.filter((p) => p.tags.includes(tag)) : projects),
-    [tag]
+    [tag],
   );
 
   return (
@@ -38,7 +38,9 @@ function WorkIndex() {
 
       <div className="container-editorial mb-12">
         <div className="flex flex-wrap gap-2 items-center">
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">Filter</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground mr-2">
+            Filter
+          </span>
           <button
             onClick={() => setTag(null)}
             className={`text-xs uppercase tracking-[0.14em] px-3 py-1.5 border transition-colors ${
@@ -65,40 +67,40 @@ function WorkIndex() {
         </div>
       </div>
 
-      <div className="container-editorial pb-24 space-y-10">
+      <div className="container-editorial pb-24 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {filtered.map((p, i) => (
-          <Reveal key={p.slug}>
+          <Reveal key={p.slug} delay={(i % 6) * 60} className="h-full">
             <Link
               to="/work/$slug"
               params={{ slug: p.slug }}
-              className="group grid md:grid-cols-12 gap-6 md:gap-10 py-8 border-t border-border hover:border-accent transition-colors"
+              className="group flex h-full flex-col border border-border p-4 md:p-6 hover:border-accent hover:bg-blush/30 transition-colors"
             >
-              <div className="md:col-span-1 font-serif italic text-muted-foreground">
-                {String(i + 1).padStart(2, "0")}
+              <div className="flex items-start justify-between gap-2">
+                <span className="font-serif italic text-sm text-muted-foreground">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.16em] px-1.5 py-0.5 border border-border text-muted-foreground shrink-0">
+                  {p.tags[0]}
+                </span>
               </div>
-              <div className="md:col-span-7">
-                <h3 className="font-serif text-3xl md:text-4xl text-primary group-hover:text-accent transition-colors leading-tight">
-                  {p.title}
-                </h3>
-                {p.subtitle && (
-                  <div className="mt-1 text-sm text-muted-foreground uppercase tracking-[0.14em]">
-                    {p.subtitle}
-                  </div>
-                )}
-                <p className="mt-4 font-serif italic text-lg text-primary/80">{p.deck}</p>
-              </div>
-              <div className="md:col-span-3 md:col-start-10 flex flex-wrap gap-2 items-start">
-                {p.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="text-[10px] uppercase tracking-[0.16em] px-2 py-1 border border-border text-muted-foreground"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="md:col-span-1 self-center text-primary/50 group-hover:text-accent group-hover:translate-x-1 transition-all">
-                →
+
+              <h3 className="mt-3 font-serif text-xl md:text-2xl text-primary group-hover:text-accent transition-colors leading-tight">
+                {p.title}
+              </h3>
+              {p.subtitle && (
+                <div className="mt-1 text-[11px] text-muted-foreground uppercase tracking-[0.12em]">
+                  {p.subtitle}
+                </div>
+              )}
+
+              <p className="mt-4 text-sm leading-relaxed text-primary/90">{p.cardChallenge}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <span className="text-accent">↳</span> {p.cardContribution}
+              </p>
+
+              <div className="mt-auto pt-5 flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-primary group-hover:text-accent transition-colors">
+                View case study
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>
           </Reveal>

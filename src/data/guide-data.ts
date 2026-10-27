@@ -1,191 +1,109 @@
-export type Category = "about" | "the-work" | "experience" | "contact";
-
-export const categories: { id: Category; label: string }[] = [
-  { id: "about", label: "About" },
-  { id: "the-work", label: "The Work" },
-  { id: "experience", label: "Experience" },
-  { id: "contact", label: "Contact" },
-];
+export interface QuestionLink {
+  label: string;
+  href: string;
+}
 
 export interface Question {
   id: string;
-  category: Category;
   question: string;
+  // Paragraphs/bullet lines separated by "\n\n".
   answer: string;
-  linkLabel: string;
-  linkHref: string;
+  links: QuestionLink[];
 }
 
-// Update these to change highlighted projects without editing question text.
-export const flagshipAIProjectId = "honasa-consumer";
-export const proudestProjectId = "toffee-inc";
-
 export const questions: Question[] = [
-  // About
   {
-    id: "who-is-akancha",
-    category: "about",
-    question: "Who is Akancha?",
+    id: "strongest-ai-strategy",
+    question: "Show me your strongest AI strategy project",
     answer:
-      "A business strategist working at the intersection of strategy and AI — BBA graduate, now studying MSc Management & AI at Southampton.",
-    linkLabel: "Becoming →",
-    linkHref: "/becoming",
+      "My strongest AI strategy projects explore how businesses can move from identifying AI opportunities to designing practical, business-led solutions.\n\n01. AI Strategy for Honasa Consumer (Mamaearth) — AI in product development, customer engagement and competitive positioning: sentiment analysis, product prioritisation and personalised recommendations.\n\n02. Daily T: AI-Powered Functional Tea Venture — a five-layer AI architecture covering personalisation, engagement, demand forecasting, quality control and competitor sentiment analysis, with an 18-month implementation roadmap.\n\n03. Future-Proofing Calvin Klein — AI-enabled recruitment, data-informed performance management and people-centred organisational change for a global fashion business.\n\nThese are strategy and academic case studies, not claims of completed AI deployments for the companies concerned.",
+    links: [
+      { label: "Honasa Consumer (Mamaearth)", href: "/work/honasa-consumer" },
+      { label: "Daily T", href: "/work/daily-t" },
+      { label: "Calvin Klein / PVH", href: "/work/calvin-klein-pvh" },
+    ],
   },
   {
-    id: "background",
-    category: "about",
-    question: "What's her background?",
+    id: "what-for-business",
+    question: "What can you do for a business?",
     answer:
-      "BBA from Inspiria Knowledge Campus, now completing an MSc in Management & AI — with 7+ real business projects along the way.",
-    linkLabel: "Becoming →",
-    linkHref: "/becoming",
+      "I work at the intersection of business strategy, AI, marketing and people. My focus is understanding the problem first, then deciding what technology, strategy or process could genuinely improve it.\n\n• AI strategy: identify valuable AI use cases, design AI-enabled workflows and build implementation roadmaps.\n\n• Business transformation: examine existing processes and consider how people and organisations adapt to change.\n\n• Marketing and growth: develop brand positioning, content strategies, customer engagement plans and growth campaigns.\n\n• Research and decision support: turn business evidence, customer insights and market research into practical recommendations.\n\n• People and change management: explore stakeholder needs, responsible AI adoption and human-centred change.\n\nMy approach is straightforward: understand the problem, research it properly, identify the insight, develop a strategy, and turn it into something useful.",
+    links: [
+      { label: "Daily T", href: "/work/daily-t" },
+      { label: "Calvin Klein / PVH", href: "/work/calvin-klein-pvh" },
+      { label: "Detrash", href: "/work/detrash" },
+      { label: "Mamaearth", href: "/work/mamaearth" },
+    ],
   },
   {
-    id: "studying",
-    category: "about",
-    question: "What is she studying?",
-    answer: "MSc Management & Artificial Intelligence, University of Southampton.",
-    linkLabel: "Becoming →",
-    linkHref: "/becoming",
-  },
-
-  // The Work
-  {
-    id: "best-ai-project",
-    category: "the-work",
-    question: "Show your best AI project",
+    id: "marketing-growth-work",
+    question: "Show me your marketing and growth work",
     answer:
-      "The Honasa Consumer analysis is the strongest example — tracing how AI investment at a real company compounds into decisions that can't be easily copied.",
-    linkLabel: "View Project →",
-    linkHref: `/work/${flagshipAIProjectId}`,
+      'My marketing work combines commercial thinking with brand storytelling and customer insight.\n\nDetrash: Fixing a One-Way Conversation — a digital marketing strategy for a sustainable watch brand, closing the gap between broadcasting sustainability messages and building real engagement, proposing "Time That Leaves a Mark."\n\nMamaearth: What Comes After 2,155% Growth? — how a rapidly growing consumer brand could sustain growth through category expansion, stronger differentiation and AI-enabled personalisation.\n\nboAt: Building a Category With No Technology Edge — how community, identity, partnerships and distribution helped build brand leadership in a competitive market.\n\nMy freelance social media work also produced reported improvements of over 50% in brand visibility, 30% in engagement and 40% in follower growth across client accounts.',
+    links: [
+      { label: "Detrash", href: "/work/detrash" },
+      { label: "Mamaearth", href: "/work/mamaearth" },
+      { label: "boAt", href: "/work/boat" },
+    ],
   },
   {
-    id: "marketing-projects",
-    category: "the-work",
-    question: "Show your marketing projects",
+    id: "ai-research",
+    question: "What AI research have you done?",
     answer:
-      "Detrash, Mamaearth, and boAt are the strongest brand and marketing case studies — each tackling a different kind of positioning challenge.",
-    linkLabel: "The Work →",
-    linkHref: "/work",
+      "My research explores where AI can support better decisions, how it should be governed, and what businesses need for adoption to work in practice.\n\n01. Designing AI Decision Support for Tea Grading — my MSc dissertation examines how an AI-enabled platform could improve consistency in tea tasting and grading without replacing expert judgement. Academic research and research-grounded system design — not a deployed grading system.\n\n02. The Real Risk Is Not Using AI: Honasa Consumer — how AI relates to product decisions, customer engagement and market positioning at Mamaearth's parent company. Business research and strategic analysis.\n\n03. Should AI Grade Your Work? — fairness, bias, transparency and accountability in higher education assessment, proposing a hybrid approach that keeps humans responsible for final decisions. Academic research and proposed AI governance model.\n\n04. Daily T: AI-Powered Functional Tea Venture — a proposed AI architecture spanning personalisation, demand forecasting, quality monitoring and customer sentiment, with a phased roadmap. Venture design and proposed AI solution, not a deployed commercial system.",
+    links: [
+      { label: "Tea Grading Research", href: "/work/ai-tea-grading" },
+      { label: "Honasa Consumer", href: "/work/honasa-consumer" },
+      { label: "Should AI Grade Your Work?", href: "/work/ai-grading" },
+      { label: "Daily T", href: "/work/daily-t" },
+    ],
   },
   {
-    id: "proudest-project",
-    category: "the-work",
-    question: "Which project are you most proud of?",
+    id: "why-consider-you",
+    question: "Why should we consider you?",
     answer:
-      "Toffee Inc. — a demand-forecasting model that cut inventory costs by 96%. The outcome was measurable, specific, and came from a genuinely simple insight.",
-    linkLabel: "View Project →",
-    linkHref: `/work/${proudestProjectId}`,
+      "I combine business education, applied AI strategy, marketing experience and practical problem-solving rather than approaching AI as a purely technical exercise.\n\n• Business-first AI thinking: my projects connect AI opportunities to customer needs, strategic decisions and operational challenges.\n\n• Research-led recommendations: my tea-grading research draws on interviews with industry participants and validates design recommendations with intended users.\n\n• Marketing experience with measurable outcomes: my freelance work delivered reported gains in visibility, engagement and follower growth.\n\n• Product and venture thinking: Daily T and AKANCHA explore how to turn identified customer problems into structured product concepts and implementation plans.\n\n• Experience working with people: event coordination, team operations, stakeholder communication and representing student concerns.\n\nI'm particularly interested in helping businesses identify where AI creates genuine value, how to introduce it responsibly, and how to translate ideas into practical solutions.",
+    links: [
+      { label: "The Work", href: "/work" },
+      { label: "Homepage", href: "/" },
+    ],
   },
   {
-    id: "research",
-    category: "the-work",
-    question: "What research have you done?",
+    id: "working-on-now",
+    question: "What are you working on now?",
     answer:
-      "The graduate job market study analysed 55 real listings to find the gap between what universities teach and what employers want. There's also a full postgraduate research proposal in the pipeline.",
-    linkLabel: "View Project →",
-    linkHref: "/work/what-employers-look-for",
+      "I'm currently working as a Business Support & Events Intern at New Forest Business Partnership (NFBP), supporting business events, operations and content. My work includes the 2026 Brilliance in Business Awards and the 2027 Business Show, alongside exploring how AI can reduce routine manual work and improve team workflows.\n\nAlongside my role, I'm continuing to develop my practical AI knowledge through Microsoft learning resources and exploring how AI can be applied responsibly in real business settings. I also attend relevant business and AI events to learn from practitioners, build connections and understand the challenges organisations face.\n\nMy ongoing focus is connecting what I learn through my MSc in Management and AI with practical business problems.",
+    links: [{ label: "Experience", href: "/field-notes" }],
   },
   {
-    id: "dissertation",
-    category: "the-work",
-    question: "What is her dissertation about?",
+    id: "leading-experience",
+    question: "What is Akancha's leading experience?",
     answer:
-      "Her MSc capstone examined what an AI-enabled platform would need to do to support the standardisation of tea tasting and grading in a tea-trading business. The research focused on AI as decision support rather than replacing expert judgement.",
-    linkLabel: "View Project →",
-    linkHref: "/work/ai-tea-grading",
-  },
-  {
-    id: "mealmate",
-    category: "the-work",
-    question: "Tell me about MealMate.",
-    answer:
-      "MealMate is a meal-planning product that connects what you already have in the kitchen with a seven-day meal plan, grocery list, estimated cost, batch preparation and food-waste reduction.",
-    linkLabel: "View Project →",
-    linkHref: "/work/mealmate",
-  },
-  {
-    id: "why-hire",
-    category: "the-work",
-    question: "Why should I hire you?",
-    answer:
-      "My work combines business strategy, research, marketing, and practical AI application. Rather than treating AI as the solution, I use it where it creates measurable value, and every project in this portfolio demonstrates that approach.",
-    linkLabel: "How I Think →",
-    linkHref: "/how-i-think",
-  },
-
-  // Experience
-  {
-    id: "current-role",
-    category: "experience",
-    question: "What is Akancha doing now?",
-    answer:
-      "She's currently working as a Business Support & Events Intern at New Forest Business Partnership, supporting business operations and events while exploring where AI can reduce manual work and where human judgement still needs to lead.",
-    linkLabel: "Open Experience →",
-    linkHref: "/field-notes",
-  },
-  {
-    id: "experience",
-    category: "experience",
-    question: "What experience do you have?",
-    answer:
-      "Course Representative, Academic Co-Chair, Student Ambassador, and competition team leadership — see the full timeline.",
-    linkLabel: "Open Experience →",
-    linkHref: "/field-notes",
-  },
-  {
-    id: "team-leadership",
-    category: "experience",
-    question: "Have you led teams?",
-    answer:
-      "Yes — elected Course Representative and repeated case-competition team leadership, including a Best Team win.",
-    linkLabel: "Open Experience →",
-    linkHref: "/field-notes",
+      "My most relevant hands-on experience is at New Forest Business Partnership, where I support business events and operations while exploring where AI can reduce manual work. Alongside that, I led PR and communications for the Rotaract Club at Inspiria Knowledge Campus — including UDDHAV, a regional Zonal Meet with 100+ attendees — and I'm the elected Course Representative for my MSc cohort at Southampton.\n\nAcross roles, the throughline is the same: operating under real pressure, representing other people's interests, and being useful without a script.",
+    links: [{ label: "Experience", href: "/field-notes" }],
   },
   {
     id: "cv",
-    category: "experience",
     question: "Can I see your CV?",
-    answer: "Available on request. Get in touch and I'll send the latest version.",
-    linkLabel: "Get In Touch →",
-    linkHref: "/contact",
+    answer:
+      "Of course. You can explore my projects and professional experience on this portfolio, or download my CV for a structured overview of my education, skills and experience.",
+    links: [
+      { label: "Download CV (PDF)", href: "/pdfs/Akancha-Sharma-CV.pdf" },
+      { label: "View my projects", href: "/work" },
+      { label: "View my experience", href: "/field-notes" },
+    ],
   },
+];
 
-  // Contact
-  {
-    id: "roles",
-    category: "contact",
-    question: "What kind of roles are you looking for?",
-    answer:
-      "I'm looking for graduate opportunities and early-career roles across strategy, product, marketing, consulting, and AI-enabled business functions.",
-    linkLabel: "Get In Touch →",
-    linkHref: "/contact",
-  },
-  {
-    id: "open-to-opportunities",
-    category: "contact",
-    question: "Are you open to opportunities?",
-    answer: "Current availability is stated clearly on the Contact page.",
-    linkLabel: "Get In Touch →",
-    linkHref: "/contact",
-  },
-  {
-    id: "how-to-contact",
-    category: "contact",
-    question: "How can I contact you?",
-    answer: "Directly — email, LinkedIn, or calendar link, all in one place.",
-    linkLabel: "Get In Touch →",
-    linkHref: "/contact",
-  },
-  {
-    id: "more-work",
-    category: "contact",
-    question: "Can I see more of your work?",
-    answer:
-      "Beyond this portfolio, I regularly share projects, reflections, competitions, and professional updates on LinkedIn.",
-    linkLabel: "LinkedIn →",
-    linkHref: "/linkedin",
-  },
+export const questionById = (id: string) => questions.find((q) => q.id === id);
+
+// Separate from the eight questions — direct shortcuts to the portfolio's main sections.
+export const exploreLinks: QuestionLink[] = [
+  { label: "Discover my journey", href: "/becoming" },
+  { label: "Explore my experience", href: "/field-notes" },
+  { label: "Explore my projects", href: "/work" },
+  { label: "How I think", href: "/how-i-think" },
+  { label: "Connect with me on LinkedIn", href: "https://www.linkedin.com/in/akanchasharma" },
 ];
 
 export interface RoleShortcut {
@@ -217,47 +135,13 @@ export const roleShortcuts: RoleShortcut[] = [
     ],
   },
   {
-    id: "ai-projects",
-    label: "Show me AI Projects",
-    intro: "The strongest AI work is here.",
+    id: "exploring",
+    label: "I'm Just Exploring",
+    intro: "No pressure — start wherever looks interesting.",
     steps: [
-      { label: "Honasa Consumer", href: `/work/${flagshipAIProjectId}` },
-      { label: "How I Think", href: "/how-i-think" },
-    ],
-  },
-  {
-    id: "marketing",
-    label: "Show me Marketing Work",
-    intro: "Brand and marketing case studies.",
-    steps: [
-      { label: "Detrash", href: "/work/detrash" },
-      { label: "Mamaearth", href: "/work/mamaearth" },
-      { label: "boAt", href: "/work/boat" },
-    ],
-  },
-  {
-    id: "research",
-    label: "I'm interested in your Research",
-    intro: "Research-led projects, grounded in real data.",
-    steps: [
-      { label: "What Employers Actually Look For", href: "/work/what-employers-look-for" },
-      { label: "Get In Touch", href: "/contact" },
-    ],
-  },
-  {
-    id: "explore",
-    label: "Explore the Portfolio",
-    intro: "All sixteen projects, in editorial order.",
-    steps: [{ label: "The Work", href: "/work" }],
-  },
-  {
-    id: "strategy",
-    label: "Strategy & Consulting",
-    intro: "The method and the portfolio, in that order.",
-    steps: [
-      { label: "How I Think", href: "/how-i-think" },
       { label: "The Work", href: "/work" },
-      { label: "Experience", href: "/field-notes" },
+      { label: "Becoming", href: "/becoming" },
+      { label: "How I Think", href: "/how-i-think" },
     ],
   },
 ];

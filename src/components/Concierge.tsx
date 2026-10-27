@@ -1,33 +1,31 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import {
-  categories,
+  exploreLinks,
   questions,
   roleShortcuts,
-  type Category,
   type Question,
+  type QuestionLink,
   type RoleShortcut,
 } from "@/data/guide-data";
 
 type StaticRoute =
-  | "/"
-  | "/work"
-  | "/becoming"
-  | "/contact"
-  | "/field-notes"
-  | "/how-i-think"
-  | "/linkedin";
+  "/" | "/work" | "/becoming" | "/contact" | "/field-notes" | "/how-i-think" | "/linkedin";
 
 type PanelView =
-  | { kind: "default" }
-  | { kind: "tour"; shortcut: RoleShortcut }
+  | { kind: "root" }
+  | { kind: "role-menu" }
+  | { kind: "role-detail"; shortcut: RoleShortcut }
+  | { kind: "question-menu" }
   | { kind: "answer"; question: Question };
+
+const cardButtonClass =
+  "w-full text-left border border-border p-4 hover:border-accent hover:bg-blush/30 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent";
 
 export function Concierge() {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<Category>("about");
-  const [view, setView] = useState<PanelView>({ kind: "default" });
+  const [view, setView] = useState<PanelView>({ kind: "root" });
 
   const navigate = useNavigate();
   const { location } = useRouterState();
@@ -48,8 +46,7 @@ export function Concierge() {
     clearTimeout(closeTimerRef.current);
     closeTimerRef.current = setTimeout(() => {
       setClosing(false);
-      setActiveCategory("about");
-      setView({ kind: "default" });
+      setView({ kind: "root" });
     }, 200);
   }, []);
 
@@ -77,17 +74,13 @@ export function Concierge() {
   useEffect(() => {
     if (!open) return;
     // Two rAFs ensure the panel is painted before stealing focus
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => closeButtonRef.current?.focus())
-    );
+    requestAnimationFrame(() => requestAnimationFrame(() => closeButtonRef.current?.focus()));
   }, [open]);
 
-  // Focus Back button when a card view appears
+  // Focus Back button when a non-root view appears
   useEffect(() => {
-    if (view.kind === "default") return;
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => backButtonRef.current?.focus())
-    );
+    if (view.kind === "root") return;
+    requestAnimationFrame(() => requestAnimationFrame(() => backButtonRef.current?.focus()));
   }, [view.kind]);
 
   // Focus trap — re-runs only when open state or view structure changes
@@ -98,8 +91,8 @@ export function Concierge() {
       if (e.key !== "Tab") return;
       const focusable = Array.from(
         panel.querySelectorAll<HTMLElement>(
-          "button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
-        )
+          "button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+        ),
       );
       if (focusable.length === 0) return;
       const first = focusable[0];
@@ -120,28 +113,33 @@ export function Concierge() {
     return () => window.removeEventListener("keydown", handleTab);
   }, [open, view.kind]);
 
-  function handleShortcut(shortcut: RoleShortcut) {
-    setView((v) =>
-      v.kind === "tour" && v.shortcut.id === shortcut.id
-        ? { kind: "default" }
-        : { kind: "tour", shortcut }
-    );
-  }
-
-  function handleCategory(id: Category) {
-    setActiveCategory(id);
-  }
-
-  function handleQuestion(q: Question) {
-    setView({ kind: "answer", question: q });
-  }
-
   function handleBack() {
-    setView({ kind: "default" });
+    setView((v) => {
+      switch (v.kind) {
+        case "role-detail":
+          return { kind: "role-menu" };
+        case "role-menu":
+          return { kind: "root" };
+        case "answer":
+          return { kind: "question-menu" };
+        case "question-menu":
+          return { kind: "root" };
+        default:
+          return { kind: "root" };
+      }
+    });
     requestAnimationFrame(() => lastActivatedRef.current?.focus());
   }
 
   function handleNavigate(href: string) {
+    const isFile = /\.[a-z0-9]+$/i.test(href);
+    const isExternal = href.startsWith("http") || isFile;
+
+    if (isExternal) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
+
     const currentPath = location.pathname.replace(/\/$/, "") || "/";
     const targetPath = href.replace(/\/$/, "") || "/";
     closePanel();
@@ -157,10 +155,22 @@ export function Concierge() {
     void navigate({ to: href as StaticRoute });
   }
 
-  const filteredQuestions = useMemo(
-    () => questions.filter((q) => q.category === activeCategory),
-    [activeCategory]
-  );
+  const showBack = view.kind !== "root";
+
+  const headerCopy = useMemo(() => {
+    switch (view.kind) {
+      case "role-menu":
+        return "Browse by role";
+      case "role-detail":
+        return view.shortcut.label;
+      case "question-menu":
+        return "Find answers to your questions";
+      case "answer":
+        return view.question.question;
+      default:
+        return "Portfolio Guide";
+    }
+  }, [view]);
 
   return (
     <>
@@ -199,161 +209,120 @@ export function Concierge() {
           className="fixed z-40 bottom-24 right-5 md:right-8 w-[min(92vw,380px)] bg-background border border-border shadow-2xl flex flex-col max-h-[min(70vh,560px)]"
         >
           {/* Header */}
-          <div className="px-4 py-3 border-b border-border flex items-center justify-between shrink-0">
-            <div>
+          <div className="px-4 py-3 border-b border-border flex items-center justify-between shrink-0 gap-3">
+            <div className="min-w-0">
               <div className="text-[10px] uppercase tracking-[0.24em] text-accent">
                 Portfolio Guide
               </div>
-              <div className="font-serif text-lg text-primary">Ask AI Akancha</div>
+              <div className="font-serif text-lg text-primary truncate">{headerCopy}</div>
             </div>
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={closePanel}
-              aria-label="Close portfolio guide"
-              className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent px-1 py-0.5"
-            >
-              Close
-            </button>
+            <div className="flex items-center gap-3 shrink-0">
+              {showBack && (
+                <button
+                  ref={backButtonRef}
+                  type="button"
+                  onClick={handleBack}
+                  className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent px-1 py-0.5"
+                >
+                  ← Back
+                </button>
+              )}
+              <button
+                ref={closeButtonRef}
+                type="button"
+                onClick={closePanel}
+                aria-label="Close portfolio guide"
+                className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent px-1 py-0.5"
+              >
+                Close
+              </button>
+            </div>
           </div>
 
           {/* Scrollable body */}
-          <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-5 text-sm">
-            {/* Welcome */}
-            <p className="text-primary/90 leading-relaxed">
-              Hi, I'm Akancha. If you're here to explore my work, I can help you find the
-              projects, experience, or research most relevant to you.
-            </p>
+          <div
+            key={
+              view.kind +
+              (view.kind === "role-detail" ? view.shortcut.id : "") +
+              (view.kind === "answer" ? view.question.id : "")
+            }
+            style={{ animation: "card-in 150ms ease-out" }}
+            className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-4 text-sm"
+          >
+            {view.kind === "root" && (
+              <>
+                <p className="text-primary/90 leading-relaxed">
+                  Hi, I'm Akancha's portfolio guide. How would you like to explore Akancha's
+                  portfolio?
+                </p>
+                <div className="space-y-3">
+                  <button
+                    type="button"
+                    className={cardButtonClass}
+                    onClick={(e) => {
+                      lastActivatedRef.current = e.currentTarget;
+                      setView({ kind: "role-menu" });
+                    }}
+                  >
+                    <div className="font-serif text-lg text-primary">Browse by role</div>
+                    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                      Recruiter, hiring manager, or just exploring — I'll point you to what matters.
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    className={cardButtonClass}
+                    onClick={(e) => {
+                      lastActivatedRef.current = e.currentTarget;
+                      setView({ kind: "question-menu" });
+                    }}
+                  >
+                    <div className="font-serif text-lg text-primary">
+                      Find answers to your questions
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                      Ask about strategy, AI, marketing, research or experience.
+                    </p>
+                  </button>
+                </div>
+              </>
+            )}
 
-            {/* Role Shortcuts */}
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
-                Role Shortcuts
-              </div>
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Role shortcuts">
+            {view.kind === "role-menu" && (
+              <div className="space-y-3">
                 {roleShortcuts.map((r) => (
                   <button
                     key={r.id}
                     type="button"
+                    className={cardButtonClass}
                     onClick={(e) => {
                       lastActivatedRef.current = e.currentTarget;
-                      handleShortcut(r);
+                      setView({ kind: "role-detail", shortcut: r });
                     }}
-                    aria-pressed={view.kind === "tour" && view.shortcut.id === r.id}
-                    className={`text-[11px] uppercase tracking-[0.14em] border px-2.5 py-1.5 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                      view.kind === "tour" && view.shortcut.id === r.id
-                        ? "border-accent bg-accent text-accent-foreground"
-                        : "border-border text-muted-foreground hover:border-accent hover:text-accent"
-                    }`}
                   >
-                    {r.label}
+                    <div className="font-serif text-lg text-primary">{r.label}</div>
                   </button>
                 ))}
               </div>
-            </div>
+            )}
 
-            {/* Tour card */}
-            {view.kind === "tour" && (
-              <div
-                key={view.shortcut.id}
-                style={{ animation: "card-in 150ms ease-out" }}
-                className="border border-border p-4 space-y-4"
-              >
-                <button
-                  ref={backButtonRef}
-                  type="button"
-                  onClick={handleBack}
-                  className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  ← Back
-                </button>
-                <div className="text-[10px] uppercase tracking-[0.22em] text-accent">
-                  {view.shortcut.label}
-                </div>
+            {view.kind === "role-detail" && (
+              <div className="space-y-4">
                 <p className="text-primary/80 leading-relaxed">{view.shortcut.intro}</p>
-                <ol className="space-y-2">
-                  {view.shortcut.steps.map((step, i) => (
-                    <li key={step.href} className="flex items-center gap-2">
-                      <span className="font-serif italic text-accent shrink-0 w-4">
-                        {i + 1}.
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleNavigate(step.href)}
-                        className="text-[11px] uppercase tracking-[0.14em] text-primary hover:text-accent transition-colors duration-150 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                      >
-                        {step.label} →
-                      </button>
-                    </li>
-                  ))}
-                </ol>
+                <NavLinkList links={view.shortcut.steps} onNavigate={handleNavigate} ordered />
               </div>
             )}
 
-            {/* Answer card */}
-            {view.kind === "answer" && (
-              <div
-                key={view.question.id}
-                style={{ animation: "card-in 150ms ease-out" }}
-                className="border border-border p-4 space-y-4"
-              >
-                <button
-                  ref={backButtonRef}
-                  type="button"
-                  onClick={handleBack}
-                  className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  ← Back
-                </button>
-                <div className="text-[10px] uppercase tracking-[0.22em] text-accent">
-                  {view.question.question}
-                </div>
-                <p className="text-primary/90 leading-relaxed">{view.question.answer}</p>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate(view.question.linkHref)}
-                  className="bg-primary text-primary-foreground px-4 py-2.5 text-[11px] uppercase tracking-[0.16em] hover:bg-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                >
-                  {view.question.linkLabel}
-                </button>
-              </div>
-            )}
-
-            {/* Category tabs + question list — visible in default and tour views */}
-            {view.kind !== "answer" && (
+            {view.kind === "question-menu" && (
               <>
-                <div
-                  role="tablist"
-                  aria-label="Question categories"
-                  className="flex border-b border-border"
-                >
-                  {categories.map((cat) => (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      role="tab"
-                      aria-selected={activeCategory === cat.id}
-                      aria-controls="concierge-tabpanel"
-                      onClick={() => handleCategory(cat.id)}
-                      className={`text-[11px] uppercase tracking-[0.14em] px-3 py-2 border-b-2 -mb-px transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                        activeCategory === cat.id
-                          ? "border-accent text-accent"
-                          : "border-transparent text-muted-foreground hover:text-primary"
-                      }`}
-                    >
-                      {cat.label}
-                    </button>
-                  ))}
-                </div>
-
-                <div id="concierge-tabpanel" role="tabpanel" className="space-y-2">
-                  {filteredQuestions.map((q) => (
+                <div className="space-y-2">
+                  {questions.map((q) => (
                     <button
                       key={q.id}
                       type="button"
                       onClick={(e) => {
                         lastActivatedRef.current = e.currentTarget;
-                        handleQuestion(q);
+                        setView({ kind: "answer", question: q });
                       }}
                       className="w-full text-left text-[11px] uppercase tracking-[0.14em] border border-border px-3 py-2.5 text-muted-foreground hover:border-accent hover:text-accent transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     >
@@ -361,11 +330,55 @@ export function Concierge() {
                     </button>
                   ))}
                 </div>
+                <div className="pt-2 border-t border-border">
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground mb-2 pt-2">
+                    Explore more
+                  </div>
+                  <NavLinkList links={exploreLinks} onNavigate={handleNavigate} />
+                </div>
               </>
+            )}
+
+            {view.kind === "answer" && (
+              <div className="space-y-4">
+                {view.question.answer.split("\n\n").map((para, i) => (
+                  <p key={i} className="text-primary/90 leading-relaxed">
+                    {para}
+                  </p>
+                ))}
+                <NavLinkList links={view.question.links} onNavigate={handleNavigate} />
+              </div>
             )}
           </div>
         </div>
       )}
     </>
+  );
+}
+
+function NavLinkList({
+  links,
+  onNavigate,
+  ordered = false,
+}: {
+  links: QuestionLink[];
+  onNavigate: (href: string) => void;
+  ordered?: boolean;
+}) {
+  return (
+    <ul className="space-y-2">
+      {links.map((link, i) => (
+        <li key={link.href} className="flex items-center gap-2">
+          {ordered && <span className="font-serif italic text-accent shrink-0 w-4">{i + 1}.</span>}
+          <button
+            type="button"
+            onClick={() => onNavigate(link.href)}
+            className="text-[11px] uppercase tracking-[0.14em] text-primary hover:text-accent transition-colors duration-150 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            {link.label} →
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
